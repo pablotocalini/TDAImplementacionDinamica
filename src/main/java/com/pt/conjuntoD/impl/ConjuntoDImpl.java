@@ -6,7 +6,7 @@ import com.pt.nodo.interfaces.Nodo;
 
 public class ConjuntoDImpl implements ConjuntoD {
 
-    Nodo conjunto;
+    private Nodo conjunto;
 
     // Constructor
     public ConjuntoDImpl() {
@@ -100,6 +100,62 @@ public class ConjuntoDImpl implements ConjuntoD {
     public int choose() {
         return this.conjunto.getInfo();
     }
+
+    /**
+     * Crea una copia exacta de este conjunto
+     * @return nueva instancia con los mismos elementos
+     */
+    public ConjuntoD copy() {
+        ConjuntoD copia =  new ConjuntoDImpl();
+        Nodo actual = this.conjunto;
+
+        // Recorro para ir agregando los elementos
+        while (actual != null) {
+            copia.add(actual.getInfo());
+            actual = actual.getNext();
+        }
+        return copia;
+    }
+
+    /**
+     * Verifica si este conjunto es subconjunto de otro
+     * @param superConjunto El conjunto potencialmente más grande
+     * @return <code>true</code> si todos los elementos de este están en el superconjunto
+     */
+    public boolean isSubsetOf(ConjuntoD superConjunto) {
+        Nodo actual = this.conjunto;
+
+        while (actual != null) {
+            if (!superConjunto.belongs(actual.getInfo())) {
+                return false;
+            }
+            actual = actual.getNext();
+        }
+        return true;
+    }
+
+    /**
+     * Calcula la diferencia: elementos que están en este conjunto pero NO en otro
+     * @param otherSet El conjunto a restar
+     * @return Nuevo conjunto con la diferencia
+     */
+    public ConjuntoD difference(ConjuntoD otherSet) {
+        ConjuntoD resultado = new ConjuntoDImpl();
+        Nodo actual = this.conjunto;
+
+        while (actual != null) {
+            if (!otherSet.belongs(actual.getInfo())) {
+                resultado.add(actual.getInfo());
+            }
+            actual = actual.getNext();
+        }
+
+        return resultado;
+    }
+
+
+
+
 
     /**
      * Representación en String del conjunto
