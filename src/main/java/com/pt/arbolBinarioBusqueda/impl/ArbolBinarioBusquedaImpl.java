@@ -1,6 +1,8 @@
 package com.pt.arbolBinarioBusqueda.impl;
 
 import com.pt.arbolBinarioBusqueda.interfaces.ArbolBinarioBusqueda;
+import com.pt.linkedList.impl.LinkedListImpl;
+import com.pt.linkedList.interfaces.LinkedList;
 
 public class ArbolBinarioBusquedaImpl implements ArbolBinarioBusqueda {
 
@@ -12,6 +14,9 @@ public class ArbolBinarioBusquedaImpl implements ArbolBinarioBusqueda {
 
     NodoABB raiz;
 
+    public ArbolBinarioBusquedaImpl() {
+        this.inicializarArbol();
+    }
     /**
      *
      */
@@ -26,6 +31,9 @@ public class ArbolBinarioBusquedaImpl implements ArbolBinarioBusqueda {
      */
     @Override
     public int raiz() {
+        if (this.arbolVacio()) {
+            throw new IllegalStateException("No se puede obtener la raíz: el árbol está vacío");
+        }
         return this.raiz.info;
     }
 
@@ -36,6 +44,9 @@ public class ArbolBinarioBusquedaImpl implements ArbolBinarioBusqueda {
      */
     @Override
     public ArbolBinarioBusqueda hijoIzq() {
+        if (this.arbolVacio()) {
+            throw new IllegalStateException("No se puede obtener el hijo izquierdo: el árbol está vacío");
+        }
         return this.raiz.hijoIzq;
     }
 
@@ -46,6 +57,9 @@ public class ArbolBinarioBusquedaImpl implements ArbolBinarioBusqueda {
      */
     @Override
     public ArbolBinarioBusqueda hijoDer() {
+        if (this.arbolVacio()) {
+            throw new IllegalStateException("No se puede obtener el hijo derecho: el árbol está vacío");
+        }
         return this.raiz.hijoDer;
     }
 
@@ -70,9 +84,7 @@ public class ArbolBinarioBusquedaImpl implements ArbolBinarioBusqueda {
             this.raiz = new NodoABB();
             this.raiz.info = x;     // Agrego el valor del nodo raiz
             this.raiz.hijoIzq = new ArbolBinarioBusquedaImpl();     // Creo una nueva instancia de ABB en el nodo izquierdo
-            this.raiz.hijoIzq.inicializarArbol();       // Inicializo el ABB
             this.raiz.hijoDer = new ArbolBinarioBusquedaImpl();     // Creo una nueva instancia de ABB en el nodo derecho
-            this.raiz.hijoDer.inicializarArbol();       // Inicializo el ABB
 
         } else if (this.raiz.info > x) {
             this.raiz.hijoIzq.agregarElem(x);
@@ -111,6 +123,12 @@ public class ArbolBinarioBusquedaImpl implements ArbolBinarioBusqueda {
         }
     }
 
+    /**
+     * Propone visitar primero los padres y luego cada hijo en el mismo orden,
+     * es decir se visita el nodo raíz, y luego cada subárbol en pre-order.
+     *
+     * @param arbol a recorrer
+     */
     @Override
     public void preOrder(ArbolBinarioBusqueda arbol) {
         if(!arbol.arbolVacio()) {
@@ -120,6 +138,23 @@ public class ArbolBinarioBusquedaImpl implements ArbolBinarioBusqueda {
         }
     }
 
+    /**
+     * Metodo para recolectar todas las hojas del árbol en una lista
+     *
+     * @return LinkedList con todos los valores de las hojas
+     */
+    public LinkedList enlazarHojas() {
+        LinkedList hojasEnlazadas = new LinkedListImpl();
+        this.recolectarHojasRecursivo(this, hojasEnlazadas);
+        return hojasEnlazadas;
+    }
+
+    /**
+     * Propone visitar in-order el subárbol izquierdo, luego la raíz y por último
+     * in-order el subárbol derecho.
+     *
+     * @param arbol a recorrer
+     */
     @Override
     public void inOrder(ArbolBinarioBusqueda arbol) {
         if(!arbol.arbolVacio()) {
@@ -129,12 +164,47 @@ public class ArbolBinarioBusquedaImpl implements ArbolBinarioBusqueda {
         }
     }
 
+    /**
+     * Propone visitar primero los hijos en post-orden y luego la raiz.
+     *
+     * @param arbol a recorrer
+     */
     @Override
     public void postOrder(ArbolBinarioBusqueda arbol) {
         if(!arbol.arbolVacio()) {
             postOrder(arbol.hijoIzq());
             postOrder(arbol.hijoDer());
             System.out.print(arbol.raiz());
+        }
+    }
+
+    /**
+     * Obtiene la altura del árbol
+     * @return altura máxima del árbol
+     */
+    public int altura() {
+        if (this.arbolVacio()) {
+            return 0;
+        }
+        return 1 + Math.max(this.raiz.hijoIzq.altura(), this.raiz.hijoDer.altura());
+    }
+
+    /**
+     * Busca un elemento en el árbol
+     * @param value elemento a buscar
+     * @return true si existe, false en caso contrario
+     */
+    public boolean buscar(int value) {
+        if (this.arbolVacio()) {
+            return false;
+        }
+
+        if (this.raiz.info == value) {
+            return true;
+        } else if (value < this.raiz.info) {
+            return this.raiz.hijoIzq.buscar(value);
+        } else {
+            return this.raiz.hijoDer.buscar(value);
         }
     }
 
@@ -154,6 +224,22 @@ public class ArbolBinarioBusquedaImpl implements ArbolBinarioBusqueda {
             return a.raiz();
         } else {
             return menor(a.hijoIzq());
+        }
+    }
+
+    /**
+     * Método auxiliar recursivo para recolectar hojas
+     */
+    private void recolectarHojasRecursivo(ArbolBinarioBusqueda arbol, LinkedList hojasEnlazadas) {
+        if(!arbol.arbolVacio()) {
+            // en este caso es hoja, solo si ambos hijos están vacíos
+            if(arbol.hijoDer().arbolVacio() && arbol.hijoIzq().arbolVacio()) {
+                hojasEnlazadas.add(arbol.raiz());
+            } else {
+                // Busco las hojas recursivamente en los hijos
+                recolectarHojasRecursivo(arbol.hijoIzq(), hojasEnlazadas);
+                recolectarHojasRecursivo(arbol.hijoDer(), hojasEnlazadas);
+            }
         }
     }
 }

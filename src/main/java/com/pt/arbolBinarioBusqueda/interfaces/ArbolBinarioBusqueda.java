@@ -42,4 +42,20 @@ public interface ArbolBinarioBusqueda {
     void preOrder(ArbolBinarioBusqueda arbol);
     void postOrder(ArbolBinarioBusqueda arbol);
     void inOrder(ArbolBinarioBusqueda arbol);
+
+    /**
+     * Obtiene la altura del árbol
+     *
+     * @return altura máxima del árbol
+     */
+    int altura();
+
+    /**
+     * Busca un elemento en el árbol
+     *
+     * @param value elemento a buscar
+     *
+     * @return <code>true</code> si existe, <code>false</code> en caso contrario
+     */
+    boolean buscar(int value);
 }
