@@ -98,6 +98,9 @@ public class ConjuntoDImpl implements ConjuntoD {
      */
     @Override
     public int choose() {
+        if (this.conjunto == null) {
+            throw new IllegalStateException("El conjunto está vacío");
+        }
         return this.conjunto.getInfo();
     }
 

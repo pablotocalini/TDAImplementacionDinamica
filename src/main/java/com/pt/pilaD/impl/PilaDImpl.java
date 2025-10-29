@@ -40,6 +40,9 @@ public class PilaDImpl implements PilaD {
      */
     @Override
     public void remove() {
+        if(this.first == null){
+            throw new IllegalStateException("No se puede eliminar, la pila esta vacia");
+        }
         this.first = this.first.getNext();
     }
 
@@ -60,7 +63,35 @@ public class PilaDImpl implements PilaD {
      */
     @Override
     public int getTop() {
+        if(this.first == null){
+            throw new IllegalStateException("No se puede obtener el tope, la pila esta vacia");
+        }
         return this.first.getInfo();
+    }
+
+    /**
+     * Método para copiar una pila
+     *
+     * @param pila que va a ser copiada
+     * @return pilaCopiada
+     */
+    @Override
+    public PilaD copyPilaD(PilaD pila) {
+        PilaD pilaCopiada = new PilaDImpl();
+        PilaD aux = new PilaDImpl();
+
+        while (!pila.isEmpty()) {
+            aux.add(pila.getTop());
+            pila.remove();
+        }
+
+        while (!aux.isEmpty()) {
+            pilaCopiada.add(aux.getTop());
+            pila.add(aux.getTop());
+            aux.remove();
+        }
+
+        return pilaCopiada;
     }
 
     /**

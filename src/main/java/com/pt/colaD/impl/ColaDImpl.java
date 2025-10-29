@@ -56,6 +56,11 @@ public class ColaDImpl implements ColaD {
      */
     @Override
     public void remove() {
+
+        if (this.first == null && this.last == null) {
+            throw new IllegalStateException("No se puede eliminar, la cola está vacía");
+        }
+
         // Avanzar first al siguiente nodo
         this.first = this.first.getNext();
 
@@ -83,6 +88,29 @@ public class ColaDImpl implements ColaD {
     @Override
     public int getFirst() {
         return this.first.getInfo();
+    }
+
+    /**
+     * Método para copiar la cola
+     *
+     * @param cola a copiar
+     * @return colaCopiada
+     */
+    public ColaD copyCola(ColaD cola) {
+        ColaD colaCopiada = new ColaDImpl();
+        ColaD aux = new ColaDImpl();
+
+        while (!cola.isEmpty()) {
+            colaCopiada.add(cola.getFirst());
+            aux.add(cola.getFirst());
+            cola.remove();
+        }
+
+        while (!aux.isEmpty()) {
+            cola.add(aux.getFirst());
+            aux.remove();
+        }
+        return colaCopiada;
     }
 
     /**

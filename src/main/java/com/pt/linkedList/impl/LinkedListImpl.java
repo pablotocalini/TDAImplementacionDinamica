@@ -89,9 +89,11 @@ public class LinkedListImpl implements LinkedList {
      */
     @Override
     public Nodo exist(int value) {
-        Nodo aux;
+        if (this.isEmpty()) {
+            return null;  // Lista vacía, no existe ningún elemento
+        }
 
-        aux = this.head.getNext();
+        Nodo aux = this.head;
         while (aux != null) {
             if (aux.getInfo() == value) {
                 return aux;

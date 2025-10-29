@@ -45,4 +45,12 @@ public interface ColaD {
      * @return El elemento más antiguo de la cola (primero en ser agregado).
      */
     int getFirst();
+
+    /**
+     * Método para copiar la cola
+     *
+     * @param cola a copiar
+     * @return colaCopiada
+     */
+    ColaD copyCola(ColaD cola);
 }

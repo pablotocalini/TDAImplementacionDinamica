@@ -43,4 +43,12 @@ public interface PilaD {
      * @return El elemento en el tope de la pila (último elemento apilado).
      */
     int getTop();
+
+    /**
+     * Método para copiar una pila
+     * @param pila que va a ser copiada
+     *
+     * @return pilaCopiada
+     */
+    PilaD copyPilaD(PilaD pila);
 }

@@ -85,6 +85,17 @@ public class PilaDConLimiteImpl implements PilaD {
     }
 
     /**
+     * Método para copiar una pila
+     *
+     * @param pila que va a ser copiada
+     * @return pilaCopiada
+     */
+    @Override
+    public PilaD copyPilaD(PilaD pila) {
+        return null;
+    }
+
+    /**
      * Representación en String de la pila
      */
     @Override

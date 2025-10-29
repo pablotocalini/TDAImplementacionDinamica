@@ -6,7 +6,9 @@ import com.pt.colaConPrioridadD.impl.ColaConPrioridadDImpl;
 import com.pt.colaConPrioridadD.interfaces.ColaConPrioridadD;
 
 /**
- * Punto 8: Tomar todos los elementos de una cola con prioridad e insertarlos en un diccionario múltiple, colocando las prioridades como “key” y los elementos que tengan esa prioridad como “value”.
+ * Punto 8: Tomar todos los elementos de una cola con prioridad e insertarlos en un
+ * diccionario múltiple, colocando las prioridades como “key” y los elementos que
+ * tengan esa prioridad como “value”.
  */
 
 public class MainPunto8 {

@@ -32,15 +32,42 @@ public class MainABB {
         System.out.println("\n\nRecorrido post-order:");
         arbol.postOrder(arbol);
 
+        // Sumar nodos
+        System.out.println("\nSumando nodos....");
+        int sumatoriaNodos = arbol.sumarNodos();
+        System.out.println("\nLa Suma de los nodos es: " + sumatoriaNodos);
+
+        //Buscar mayor
+        System.out.println("\nBuscando el mayor....");
+        int mayor = arbol.mayorValor(arbol);
+        System.out.println("\nEl mayor nodo es: " + mayor);
+
+        //Buscar mayor
+        System.out.println("\nBuscando el menor....");
+        int menor = arbol.menorValor(arbol);
+        System.out.println("\nEl mayor nodo es: " + menor);
+
         // Probar hojas
-        System.out.println("\n\nHojas del árbol:");
+        System.out.println("\nHojas del árbol:");
         LinkedList hojas = ((ArbolBinarioBusquedaImpl) arbol).enlazarHojas();
-        System.out.println(hojas);  // [20, 40, 60, 80]
+        System.out.println(hojas);
+
+        // Buscar Nodos internos
+        System.out.println("\nRecolectando los nodos internos....");
+        LinkedList nodosInternos = arbol.buscarNodosInternos();
+        System.out.println(nodosInternos);
+
+        // Mostrar nodos en niveles impares
+        System.out.println("\nNodos de Niveles Impares...");
+        arbol.imprimirNivelesImpares();
+        System.out.println();
 
         // Probar eliminación
         System.out.println("\nEliminando 7...");
         arbol.eliminarElem(7);
         System.out.println("In-order después de eliminar 7:");
-        arbol.inOrder(arbol);  // 20 40 50 60 70 80
+        arbol.inOrder(arbol);
+
+
     }
 }

@@ -6,7 +6,8 @@ import com.pt.simpleDictionaryD.impl.SimpleDictionaryDImpl;
 import com.pt.simpleDictionaryD.interfaces.SimpleDictionaryD;
 
 /**
- * Punto 7: Tomar todos los elementos de una cola e insertarlos en un diccionario simple, colocando el elemento como “key” y su posición en la cola como “value”.
+ * Punto 7: Tomar todos los elementos de una cola e insertarlos en un diccionario simple,
+ * colocando el elemento como “key” y su posición en la cola como “value”.
  */
 
 public class MainPunto7 {

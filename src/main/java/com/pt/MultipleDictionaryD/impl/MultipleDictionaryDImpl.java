@@ -38,7 +38,7 @@ public class MultipleDictionaryDImpl implements MultipleDictionaryD {
      * Si la clave no existe, se crea una nueva entrada para ella.
      * Si el valor ya existe para la clave, la operación no tiene efecto (no se permiten duplicados).
      *
-     * @param key   La clave a la que se asociará el valor. Puede ser cualquier entero.
+     * @param key La clave a la que se asociará el valor. Puede ser cualquier entero.
      * @param value El valor a agregar a la clave especificada. Puede ser cualquier entero.
      */
     @Override

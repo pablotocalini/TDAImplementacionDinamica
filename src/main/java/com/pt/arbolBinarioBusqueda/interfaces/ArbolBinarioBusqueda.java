@@ -1,5 +1,7 @@
 package com.pt.arbolBinarioBusqueda.interfaces;
 
+import com.pt.linkedList.interfaces.LinkedList;
+
 public interface ArbolBinarioBusqueda {
 
     void inicializarArbol();
@@ -58,4 +60,10 @@ public interface ArbolBinarioBusqueda {
      * @return <code>true</code> si existe, <code>false</code> en caso contrario
      */
     boolean buscar(int value);
+
+    int sumarNodos();
+    int mayorValor(ArbolBinarioBusqueda arbol);
+    int menorValor(ArbolBinarioBusqueda arbol);
+    LinkedList buscarNodosInternos();
+    void imprimirNivelesImpares();
 }

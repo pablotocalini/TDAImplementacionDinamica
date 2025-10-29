@@ -25,7 +25,7 @@ public class ColaConPrioridadDImpl implements ColaConPrioridadD {
     /**
      * Agrega un elemento a la cola según su prioridad.
      *
-     * @param num      El valor a almacenar en la cola.
+     * @param num El valor a almacenar en la cola.
      * @param priority La prioridad del elemento (mayor valor indica mayor prioridad).
      */
     @Override
@@ -33,11 +33,12 @@ public class ColaConPrioridadDImpl implements ColaConPrioridadD {
         NodoConPrioridad newNode = new NodoConPrioridadImpl(num, priority);
 
         // Si la cola está vacía o tiene mayor prioridad
-        if (highPriorityNode == null || priority > highPriorityNode.getPriority()) {
-           newNode.setNext(highPriorityNode);
-           highPriorityNode = newNode;
+        if (this.highPriorityNode == null || priority > this.highPriorityNode.getPriority()) {
+            newNode.setNext(this.highPriorityNode);
+            this.highPriorityNode = newNode;
+
         }  else {       // Si la cola no está vacía o el elemento tiene < prioridad que el de mayor prioridad en la cola
-            NodoConPrioridad aux = highPriorityNode;
+            NodoConPrioridad aux = this.highPriorityNode;
             // Chequeo si el nodo sig. al de > prioridad no está vacío y el siguiente tenga mayor o igual prioridad que el nuevo nodo a ingresar
             while (aux.getNext() != null && aux.getNext().getPriority() >= priority) {
                 aux = aux.getNext();    // Voy pasando de nodo en nodo
@@ -53,6 +54,9 @@ public class ColaConPrioridadDImpl implements ColaConPrioridadD {
      */
     @Override
     public void remove() {
+        if (this.highPriorityNode == null) {
+            throw new IllegalStateException("No se puede eliminar el elemento, la cola con prioridad está vacía");
+        }
         this.highPriorityNode = this.highPriorityNode.getNext();
     }
 
@@ -73,6 +77,9 @@ public class ColaConPrioridadDImpl implements ColaConPrioridadD {
      */
     @Override
     public int getFirst() {
+        if (this.highPriorityNode == null) {
+            throw new IllegalStateException("No se puede obtener el elemento, la cola con prioridad está vacía");
+        }
         return this.highPriorityNode.getInfo();
     }
 
@@ -83,6 +90,9 @@ public class ColaConPrioridadDImpl implements ColaConPrioridadD {
      */
     @Override
     public int getPriority() {
+        if (this.highPriorityNode == null) {
+            throw new IllegalStateException("No se puede obtener la prioridad, la cola con prioridad está vacía");
+        }
         return this.highPriorityNode.getPriority();
     }
 

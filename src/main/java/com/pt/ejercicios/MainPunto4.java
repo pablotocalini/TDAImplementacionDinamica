@@ -50,7 +50,7 @@ public class MainPunto4 {
         int input = scanner.nextInt();
 
         // Metodo para encontrar un elemento dado
-        int posicionDeElemento = encontrarElemento( cola, input);
+        int posicionDeElemento = encontrarElemento(cola, input);
 
         // Mostrar el resultado
         if (posicionDeElemento != -1) {

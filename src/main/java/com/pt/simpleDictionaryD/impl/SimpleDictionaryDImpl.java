@@ -83,6 +83,10 @@ public class SimpleDictionaryDImpl implements SimpleDictionaryD {
     public int recoverValue(int key) {
         DictionaryNode aux = key2DictionaryNode(key);
 
+        if(aux == null) {
+            throw new IllegalStateException("No se encontró un valor asociado a la clave: " + key);
+        }
+
         return aux.getValue();
     }
 
